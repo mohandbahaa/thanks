@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شكر وتقدير | م. محمد صابر</title>
+
+  <!-- ========== Tailwind CSS ========== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ========== Google Fonts ========== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- ========== Tailwind Config ========== -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0a0a0a',
+            gold: '#D4AF37',
+            'gold-dim': '#9c7f22',
+            ivory: '#F5F5F5',
+            muted: '#888888',
+            panel: '#1a1a1a',
+            border: '#2a2a2a',
+          },
+          fontFamily: {
+            arabic: ['"Cairo"', '"Tajawal"', 'sans-serif'],
+            display: ['"Playfair Display"', 'serif'],
+            mono: ['"DM Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES — single source of truth for all tokens
+       ============================================================ */
+    :root {
+      --gold:          #D4AF37;
+      --gold-dim:      #9c7f22;
+      --gold-faint:    rgba(212, 175, 55, 0.18);
+      --gold-glow:     rgba(212, 175, 55, 0.08);
+      --charcoal:      #0a0a0a;
+      --surface:       rgba(20, 20, 20, 0.75);
+      --surface-hover: rgba(26, 26, 26, 0.85);
+      --text-primary:  #F5F5F5;
+      --text-secondary:rgba(245, 245, 245, 0.82);
+      --text-muted:    rgba(245, 245, 245, 0.55);
+      --text-dim:      #777;
+      --border-subtle: rgba(212, 175, 55, 0.18);
+      --border-chip:   rgba(212, 175, 55, 0.25);
+      --radius-card:   28px;
+      --radius-chip:   50px;
+      --transition-base: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      --transition-slow: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      --shadow-card:   0 25px 50px rgba(0, 0, 0, 0.55), 0 0 80px rgba(212, 175, 55, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--charcoal);
+      color: var(--text-primary);
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.75;
+      /* refined letter-spacing for Arabic */
+      letter-spacing: 0.01em;
+      background-image:
+        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(212, 175, 55, 0.04) 0%, transparent 65%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      /* prevent content from touching screen edges on tiny phones */
+      min-width: 320px;
+    }
+
+    /* Scroll lock */
+    body.no-scroll {
+      overflow: hidden;
+      height: 100dvh;
+      touch-action: none;
+    }
+
+    /* ============================================================
+       FOCUS-VISIBLE — keyboard navigation ring
+       ============================================================ */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       READING PROGRESS BAR
+       ============================================================ */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;          /* LTR physical left = visual right in RTL layout */
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform-origin: left center;
+      transform: scaleX(0);
+      z-index: 8888;
+      transition: transform 0.1s linear;
+      pointer-events: none;
+      opacity: 0;
+    }
+    #progress-bar.visible {
+      opacity: 1;
+    }
+
+    /* ============================================================
+       SCROLL-TO-TOP BUTTON
+       ============================================================ */
+    #scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      left: 1.5rem;     /* left in LTR/RTL physical — visible on left side */
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 15, 15, 0.85);
+      border: 1px solid var(--gold-faint);
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 8000;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity var(--transition-base), transform var(--transition-base), background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+      pointer-events: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    #scroll-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #scroll-top:hover {
+      background: rgba(212, 175, 55, 0.12);
+      border-color: rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.18);
+      transform: translateY(-3px);
+    }
+    #scroll-top:active {
+      transform: translateY(0);
+    }
+    #scroll-top svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--gold);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform var(--transition-base);
+    }
+    #scroll-top:hover svg {
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       KEYFRAMES
+       ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spinCube {
+      from { transform: rotateX(20deg) rotateY(0deg); }
+      to   { transform: rotateX(20deg) rotateY(360deg); }
+    }
+    @keyframes floatCube {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50%      { opacity: 1; }
+    }
+    @keyframes scanline {
+      0%   { top: 2%; opacity: 0; }
+      15%  { opacity: 0.8; }
+      85%  { opacity: 0.8; }
+      100% { top: 96%; opacity: 0; }
+    }
+    @keyframes orbitSpin {
+      from { transform: translateX(-50%) rotateX(68deg) rotateZ(0deg); }
+      to   { transform: translateX(-50%) rotateX(68deg) rotateZ(360deg); }
+    }
+    @keyframes scrollBounce {
+      0%, 100% { opacity: 0.4; transform: translateY(0); }
+      50%      { opacity: 1; transform: translateY(8px); }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15%      { transform: scale(1.15); }
+      30%      { transform: scale(1); }
+    }
+    @keyframes cardEntry {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes sparkleAnim {
+      0%   { transform: scale(0) rotate(0deg); opacity: 1; }
+      100% { transform: scale(1.8) rotate(90deg); opacity: 0; }
+    }
+    @keyframes gateHeartbeat {
+      0%, 100% { transform: scale(1); }
+      10%      { transform: scale(0.9); }
+      22%      { transform: scale(1.2); }
+      34%      { transform: scale(0.94); }
+      48%      { transform: scale(1.24); }
+      60%      { transform: scale(1); }
+    }
+    @keyframes floatHint {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50%      { transform: translateY(12px); opacity: 1; }
+    }
+    @keyframes heartBurst {
+      0%   { opacity: 1; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.7) rotate(var(--rot)); }
+    }
+    /* Scroll-triggered reveal */
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       REDUCED MOTION — respects user OS preference
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ============================================================
+       ENTRANCE STAGGER (hero elements only)
+       ============================================================ */
+    .anim-1 { animation: fadeUp 1s cubic-bezier(.23,1,.32,1) 0.1s both; }
+    .anim-2 { animation: fadeUp 1s cubic-bezier(.23,1,.32,1) 0.3s both; }
+    .anim-3 { animation: fadeUp 1s cubic-bezier(.23,1,.32,1) 0.5s both; }
+
+    /* ============================================================
+       SCROLL-REVEAL — applied by IntersectionObserver
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .reveal.in-view {
+      animation: revealUp 0.8s cubic-bezier(.23,1,.32,1) both;
+    }
+    .reveal.in-view.delay-1 { animation-delay: 0.10s; }
+    .reveal.in-view.delay-2 { animation-delay: 0.22s; }
+    .reveal.in-view.delay-3 { animation-delay: 0.34s; }
+    .reveal.in-view.delay-4 { animation-delay: 0.46s; }
+
+    /* ============================================================
+       ENTRY GATE
+       ============================================================ */
+    .entry-gate {
+      position: fixed;
+      inset: 0;
+      background: var(--charcoal);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .entry-gate.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .gate-heart {
+      font-size: 5rem;
+      cursor: pointer;
+      animation: gateHeartbeat 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 35px rgba(212, 175, 55, 0.75));
+      transition: transform var(--transition-base), filter var(--transition-base);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      color: var(--gold);
+      /* accessibility */
+      border-radius: 50%;
+      padding: 0.25rem;
+    }
+    .gate-heart:hover {
+      transform: scale(1.18);
+      filter: drop-shadow(0 0 55px rgba(212, 175, 55, 0.95));
+    }
+    .gate-heart:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 8px;
+    }
+
+    .gate-hint {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      animation: floatHint 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .gate-arrow {
+      width: 28px;
+      height: 28px;
+      border-right: 2px solid rgba(212, 175, 55, 0.75);
+      border-bottom: 2px solid rgba(212, 175, 55, 0.75);
+      transform: rotate(45deg);
+    }
+    .gate-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.32em;
+      color: rgba(212, 175, 55, 0.6);
+      text-transform: uppercase;
+    }
+    .gate-footer {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    /* Heart burst particles */
+    .heart-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      font-size: 1.5rem;
+      animation: heartBurst 1.5s ease-out forwards;
+    }
+
+    /* ============================================================
+       3D CUBE AVATAR
+       ============================================================ */
+    .avatar-scene {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      perspective: 600px;
+      perspective-origin: 50% 36%;
+    }
+    .avatar-bg-glow {
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .corner-mark {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+    }
+    .corner-mark.tl { top: 8px; left: 8px;  border-top: 1.5px solid rgba(212,175,55,0.65); border-left:  1.5px solid rgba(212,175,55,0.65); }
+    .corner-mark.tr { top: 8px; right: 8px; border-top: 1.5px solid rgba(212,175,55,0.65); border-right: 1.5px solid rgba(212,175,55,0.65); }
+    .corner-mark.bl { bottom: 8px; left: 8px;  border-bottom: 1.5px solid rgba(212,175,55,0.65); border-left:  1.5px solid rgba(212,175,55,0.65); }
+    .corner-mark.br { bottom: 8px; right: 8px; border-bottom: 1.5px solid rgba(212,175,55,0.65); border-right: 1.5px solid rgba(212,175,55,0.65); }
+    .corner-mark::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+    .corner-mark.tl::after { top: -2px;    left: -2px;  animation-delay: 0s; }
+    .corner-mark.tr::after { top: -2px;    right: -2px; animation-delay: 0.6s; }
+    .corner-mark.bl::after { bottom: -2px; left: -2px;  animation-delay: 1.2s; }
+    .corner-mark.br::after { bottom: -2px; right: -2px; animation-delay: 1.8s; }
+
+    .scan-beam {
+      position: absolute;
+      left: 22px; right: 22px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.75) 45%, rgba(212,175,55,0.75) 55%, transparent 100%);
+      pointer-events: none;
+      animation: scanline 3.5s ease-in-out infinite;
+      filter: blur(0.5px);
+    }
+    .avatar-float {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: floatCube 5s ease-in-out infinite;
+    }
+    .cube-spinner {
+      animation: spinCube 10s linear infinite;
+      transform-style: preserve-3d;
+    }
+    .cube {
+      position: relative;
+      width: 84px;
+      height: 84px;
+      transform-style: preserve-3d;
+    }
+    .face {
+      position: absolute;
+      width: 84px;
+      height: 84px;
+      border: 1.5px solid rgba(212,175,55,0.65);
+      background: rgba(12,12,12,0.55);
+      background-image:
+        linear-gradient(rgba(212,175,55,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,0.08) 1px, transparent 1px);
+      background-size: 21px 21px;
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .face.front  { transform: translateZ(42px); }
+    .face.back   { transform: translateZ(-42px) rotateY(180deg); }
+    .face.left   { transform: translateX(-42px) rotateY(-90deg); }
+    .face.right  { transform: translateX(42px)  rotateY(90deg); }
+    .face.top    { transform: translateY(-42px) rotateX(90deg); }
+    .face.bottom { transform: translateY(42px)  rotateX(-90deg); }
+    .face-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 12px 3px rgba(212,175,55,0.6);
+    }
+    .face-cross { position: absolute; inset: 0; }
+    .face-cross::before,
+    .face-cross::after {
+      content: '';
+      position: absolute;
+      background: rgba(212,175,55,0.15);
+    }
+    .face-cross::before { width: 100%; height: 1px; top: 50%; left: 0; }
+    .face-cross::after  { width: 1px; height: 100%; top: 0;   left: 50%; }
+
+    .orbit-ring {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      width: 130px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,175,55,0.3);
+      animation: orbitSpin 7s linear infinite;
+    }
+    .orbit-ring::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: 8px;
+      width: 7px; height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px 2px rgba(212,175,55,0.7);
+    }
+    .orbit-ring::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; right: 8px;
+      width: 5px; height: 5px;
+      background: rgba(212,175,55,0.45);
+      border-radius: 50%;
+    }
+    .shoulder-bar {
+      display: block;
+      width: 100px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 20px auto 0;
+      opacity: 0.7;
+    }
+
+    /* ============================================================
+       CARDS & DECORATIVE ELEMENTS
+       ============================================================ */
+    .luxury-card {
+      position: relative;
+      background: var(--surface);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      animation: cardEntry 1s cubic-bezier(.22,.61,.36,1) 0.5s both;
+      transition: box-shadow var(--transition-slow), border-color var(--transition-slow), background var(--transition-slow);
+      overflow: hidden;       /* keep sparkles clipped */
+    }
+    .luxury-card:hover {
+      background: var(--surface-hover);
+      border-color: rgba(212,175,55,0.28);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 100px rgba(212,175,55,0.07), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .gold-line {
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+      opacity: 0.45;
+    }
+    .gold-line-strong {
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.8;
+    }
+
+    /* Quote cards */
+    .quote-card {
+      position: relative;
+      border-right: 2px solid rgba(212,175,55,0.4);
+      padding-right: 1.8rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      transition: border-color var(--transition-base), padding-right var(--transition-base);
+    }
+    .quote-card:hover {
+      border-color: rgba(212,175,55,0.75);
+      padding-right: 2.2rem;
+    }
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.15;
+      user-select: none;
+      position: absolute;
+      right: 0.5rem;
+      top: -1.8rem;
+      transition: opacity var(--transition-base);
+    }
+    .quote-card:hover .quote-mark {
+      opacity: 0.25;
+    }
+
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.75;
+    }
+
+    /* Name chips */
+    .name-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 22px;
+      border: 1px solid var(--border-chip);
+      border-radius: var(--radius-chip);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      transition: background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+      cursor: default;
+      will-change: transform;
+    }
+    .name-chip:hover {
+      background: rgba(212,175,55,0.1);
+      border-color: rgba(212,175,55,0.7);
+      box-shadow: 0 0 20px rgba(212,175,55,0.14), 0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-4px);
+    }
+    .name-chip::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: transform var(--transition-base);
+    }
+    .name-chip:hover::before {
+      transform: scale(1.4);
+    }
+
+    /* Powered badge */
+    .powered-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: #3d3d3d;
+      text-transform: uppercase;
+      transition: color var(--transition-base);
+    }
+    .powered-badge .brand {
+      color: rgba(212,175,55,0.5);
+      transition: color var(--transition-base);
+    }
+    .powered-badge:hover { color: #606060; }
+    .powered-badge:hover .brand { color: var(--gold); }
+
+    /* Sparkle */
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      animation: sparkleAnim 2.2s forwards;
+      z-index: 10;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* Heartbeat */
+    .heart-beat {
+      display: inline-block;
+      color: var(--gold);
+      animation: heartbeat 1.8s infinite;
+    }
+
+    /* ============================================================
+       CORNER BRACKETS (inside luxury-card)
+       ============================================================ */
+    .bracket {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+      transition: opacity var(--transition-base), width var(--transition-base), height var(--transition-base);
+    }
+    .luxury-card:hover .bracket { opacity: 1; width: 20px; height: 20px; }
+    .bracket.tl { top: 16px;    left: 16px;  border-top:    1.5px solid var(--gold); border-left:   1.5px solid var(--gold); }
+    .bracket.tr { top: 16px;    right: 16px; border-top:    1.5px solid var(--gold); border-right:  1.5px solid var(--gold); }
+    .bracket.bl { bottom: 16px; left: 16px;  border-bottom: 1.5px solid var(--gold); border-left:   1.5px solid var(--gold); }
+    .bracket.br { bottom: 16px; right: 16px; border-bottom: 1.5px solid var(--gold); border-right:  1.5px solid var(--gold); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 640px) {
+      .avatar-scene { width: 160px; height: 160px; }
+      .cube         { width: 66px;  height: 66px; }
+      .face         { width: 66px;  height: 66px; }
+      .face.front   { transform: translateZ(33px); }
+      .face.back    { transform: translateZ(-33px)  rotateY(180deg); }
+      .face.left    { transform: translateX(-33px)  rotateY(-90deg); }
+      .face.right   { transform: translateX(33px)   rotateY(90deg); }
+      .face.top     { transform: translateY(-33px)  rotateX(90deg); }
+      .face.bottom  { transform: translateY(33px)   rotateX(-90deg); }
+      .orbit-ring   { width: 100px; }
+      .luxury-card  { border-radius: 18px; }
+      .quote-mark   { font-size: 3.5rem; top: -1.2rem; }
+      .gate-heart   { font-size: 4rem; }
+      .name-chip    { font-size: 0.65rem; padding: 7px 16px; }
+
+      /* Prevent awkward hero title overflow on very small screens */
+      h1 { word-break: break-word; }
+    }
+
+    /* Extra-small phones */
+    @media (max-width: 375px) {
+      .luxury-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+    }
+
+    /* Fluid sections — no horizontal overflow */
+    section, footer {
+      max-width: 100vw;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center">
+
+  <!-- ==================== READING PROGRESS BAR ==================== -->
+  <div id="progress-bar" role="presentation" aria-hidden="true"></div>
+
+  <!-- ==================== SCROLL-TO-TOP BUTTON ==================== -->
+  <button
+    id="scroll-top"
+    aria-label="العودة إلى الأعلى"
+    title="العودة إلى الأعلى"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- ==================== ENTRY GATE ==================== -->
+  <div class="entry-gate" id="entryGate" role="dialog" aria-modal="true" aria-label="بوابة الدخول">
+    <div
+      class="gate-heart"
+      id="gateHeart"
+      role="button"
+      tabindex="0"
+      aria-label="اضغط للدخول"
+      title="اضغط للدخول"
+    >❤</div>
+    <div class="gate-hint" aria-hidden="true">
+      <div class="gate-arrow"></div>
+      <span class="gate-text">اضغط للدخول</span>
+    </div>
+    <div class="gate-footer">
+      <p class="powered-badge">
+        Powered by <span class="brand">Yami Rin</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ==================== HERO ==================== -->
+  <section
+    class="relative flex flex-col items-center justify-center min-h-screen w-full px-6 py-20 text-center overflow-hidden"
+    aria-label="قسم الترحيب"
+  >
+    <!-- Background grid -->
+    <div
+      class="absolute inset-0 pointer-events-none"
+      aria-hidden="true"
+      style="background-image:
+        linear-gradient(rgba(212,175,55,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,0.025) 1px, transparent 1px);
+        background-size: 50px 50px;"
+    ></div>
+
+    <!-- 3D Cube Avatar -->
+    <div class="anim-1" aria-hidden="true">
+      <div class="avatar-scene">
+        <div class="avatar-bg-glow"></div>
+        <div class="corner-mark tl"></div>
+        <div class="corner-mark tr"></div>
+        <div class="corner-mark bl"></div>
+        <div class="corner-mark br"></div>
+        <div class="scan-beam"></div>
+        <div class="avatar-float">
+          <div class="cube-spinner">
+            <div class="cube">
+              <div class="face front"><div class="face-cross"></div><div class="face-dot"></div></div>
+              <div class="face back"><div class="face-cross"></div><div class="face-dot"></div></div>
+              <div class="face left"><div class="face-cross"></div><div class="face-dot"></div></div>
+              <div class="face right"><div class="face-cross"></div><div class="face-dot"></div></div>
+              <div class="face top"><div class="face-cross"></div><div class="face-dot"></div></div>
+              <div class="face bottom"><div class="face-cross"></div><div class="face-dot"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="orbit-ring"></div>
+      </div>
+      <span class="shoulder-bar"></span>
+    </div>
+
+    <!-- Name & Title -->
+    <div class="mt-8 anim-2">
+      <p class="section-tag mb-3">إهداء — دفعة الثانوية العامة 2026</p>
+      <h1 style="
+            font-family: 'Playfair Display', 'Cairo', serif;
+            font-size: clamp(2.6rem, 8vw, 4.8rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.15;
+            letter-spacing: 0.025em;">
+        Eng.&nbsp;<span style="color: var(--gold);">Mo Saber</span>
+      </h1>
+      <p class="font-mono text-xs mt-3" style="color: var(--text-dim); letter-spacing: 0.3em;">
+        مُعَلِّمُ الرِّيَاضِيَّات
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div class="w-full max-w-xs mx-auto mt-10 anim-3">
+      <span class="gold-line-strong" aria-hidden="true"></span>
+    </div>
+
+    <!-- Scroll cue -->
+    <div
+      class="absolute bottom-10 left-1/2 -translate-x-1/2 anim-3"
+      style="animation: scrollBounce 2.4s ease-in-out infinite;"
+      aria-hidden="true"
+    >
+      <div style="width:1px; height:52px; background: linear-gradient(to bottom, rgba(212,175,55,0.7), transparent); margin:0 auto;"></div>
+    </div>
+  </section>
+
+  <!-- ==================== رسالة الشكر ==================== -->
+  <section
+    class="relative w-full max-w-3xl px-6 py-16 mx-auto"
+    id="message"
+    aria-labelledby="msg-heading"
+  >
+    <div class="luxury-card p-8 sm:p-12 reveal delay-1">
+      <!-- Corner brackets -->
+      <span class="bracket tl" aria-hidden="true"></span>
+      <span class="bracket tr" aria-hidden="true"></span>
+      <span class="bracket bl" aria-hidden="true"></span>
+      <span class="bracket br" aria-hidden="true"></span>
+
+      <p class="section-tag mb-6 text-center" id="msg-heading">رسالة شكر وتقدير</p>
+      <p class="text-lg sm:text-xl text-center" style="color: var(--text-secondary); font-weight:300; line-height:2.3;">
+        إلى <span style="color: var(--gold); font-weight:600;">هندستنا</span>
+        <span class="heart-beat" style="font-size:1.6rem; display:inline-block; vertical-align:middle;" aria-hidden="true">❤</span>
+      </p>
+
+      <span class="gold-line my-8 block" aria-hidden="true"></span>
+
+      <p class="text-base sm:text-lg text-center" style="color: var(--text-secondary); font-weight:300; line-height:2.3;">
+        لن تكفي كلمات بسيطة لوصف امتناننا لك<br>
+        فأنت لم تكن مجرد معلم، بل كنت شخصًا <span style="color: var(--gold);">يصنع فرقًا</span> داخل كل طالب فينا.<br>
+        كنت دائمًا مصدر <span style="color: var(--gold);">دعم وصبر</span> حتى في أصعب الأوقات.<br>
+        شكرًا لأنك لم تكن مجرد مدرّس، بل شخصًا ترك <span style="color: var(--gold);">أثرًا جميلًا</span> في مرحلة لن ننساها أبدًا.<br>
+        ستبقى ذكراك جميلة في قلوبنا دائمًا 🥹
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== أقوال مأثورة ==================== -->
+  <section
+    class="relative w-full max-w-3xl px-6 py-16 mx-auto"
+    aria-labelledby="quotes-heading"
+  >
+    <p class="section-tag mb-4 text-center reveal">كلمات خالدة</p>
+    <h2
+      id="quotes-heading"
+      class="text-2xl sm:text-3xl font-bold text-center mb-10 reveal delay-1"
+      style="font-family:'Cairo','Tajawal',sans-serif; color: var(--text-primary); letter-spacing:0.01em;"
+    >
+      من أقواله التي لا تُنسى
+    </h2>
+
+    <div class="space-y-10">
+      <!-- Quote 1 -->
+      <div class="quote-card reveal delay-1">
+        <div class="quote-mark" aria-hidden="true">"</div>
+        <blockquote
+          class="text-base sm:text-lg"
+          style="color: var(--text-primary); font-weight:300; line-height:2.1;"
+          cite="م. محمد صابر"
+        >
+          يلا هنعزق ف الأرض ونحل حل الفلاحين.
+        </blockquote>
+        <p class="font-mono text-xs mt-3" style="color: var(--text-dim); letter-spacing:0.16em;">— م. محمد صابر</p>
+      </div>
+
+      <!-- Quote 2 -->
+      <div class="quote-card reveal delay-2">
+        <div class="quote-mark" aria-hidden="true">"</div>
+        <blockquote
+          class="text-base sm:text-lg"
+          style="color: var(--text-primary); font-weight:300; line-height:2.1;"
+          cite="م. محمد صابر"
+        >
+          ويجي الولا يقول ي استاذ ي استاذ.
+        </blockquote>
+        <p class="font-mono text-xs mt-3" style="color: var(--text-dim); letter-spacing:0.16em;">— م. محمد صابر</p>
+      </div>
+
+      <!-- Quote 3 -->
+      <div class="quote-card reveal delay-3">
+        <div class="quote-mark" aria-hidden="true">"</div>
+        <blockquote
+          class="text-base sm:text-lg"
+          style="color: var(--text-primary); font-weight:300; line-height:2.1;"
+          cite="م. محمد صابر"
+        >
+          بلاش تطلعوا العالم الي جواكو.
+        </blockquote>
+        <p class="font-mono text-xs mt-3" style="color: var(--text-dim); letter-spacing:0.16em;">— م. محمد صابر</p>
+      </div>
+
+      <!-- Quote 4 -->
+      <div class="quote-card reveal delay-4">
+        <div class="quote-mark" aria-hidden="true">"</div>
+        <blockquote
+          class="text-base sm:text-lg"
+          style="color: var(--text-primary); font-weight:300; line-height:2.1;"
+          cite="م. محمد صابر"
+        >
+          تخصك فوق وتحت متخصكش طالع ونازل.
+        </blockquote>
+        <p class="font-mono text-xs mt-3" style="color: var(--text-dim); letter-spacing:0.16em;">— م. محمد صابر</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== أسماء الطلاب ==================== -->
+  <section
+    class="relative w-full max-w-3xl px-6 py-16 mx-auto text-center"
+    aria-labelledby="students-heading"
+  >
+    <span class="gold-line block mb-14 opacity-30" aria-hidden="true"></span>
+
+    <p class="section-tag mb-4 reveal">موقَّع بامتنان</p>
+    <h2
+      id="students-heading"
+      class="text-2xl sm:text-3xl font-bold mb-2 reveal delay-1"
+      style="font-family:'Cairo','Tajawal',sans-serif; color: var(--text-primary);"
+    >
+      طلابك المخلصون
+    </h2>
+
+    <div class="flex flex-wrap gap-3 justify-center mt-8" role="list">
+      <span class="name-chip reveal delay-1" role="listitem">Mohand Bahaa</span>
+      <span class="name-chip reveal delay-2" role="listitem">Ahmed Saber</span>
+      <span class="name-chip reveal delay-1" role="listitem">Omar Ahmed</span>
+      <span class="name-chip reveal delay-2" role="listitem">Ahmed ElBa3ly</span>
+      <span class="name-chip reveal delay-1" role="listitem">Youssef Mahmoud</span>
+      <span class="name-chip reveal delay-2" role="listitem">Shahd Blal</span>
+      <span class="name-chip reveal delay-3" role="listitem">Nour Essam</span>
+      <span class="name-chip reveal delay-3" role="listitem">Yomna Eyada</span>
+    </div>
+
+    <span class="gold-line block mt-14 opacity-30" aria-hidden="true"></span>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="w-full max-w-3xl px-6 pb-12 pt-4 mx-auto" role="contentinfo">
+    <div class="flex items-center justify-between gap-4">
+      <span class="gold-line opacity-25 flex-1" aria-hidden="true"></span>
+
+      <div class="text-center">
+        <div
+          aria-hidden="true"
+          style="width:20px; height:20px; border:1px solid rgba(212,175,55,0.45); margin:0 auto 8px;
+                 transform:rotate(20deg); animation:spinCube 6s linear infinite; transform-style:preserve-3d;"
+        ></div>
+        <p class="font-mono text-xs" style="color:#4a4a4a; letter-spacing:0.14em;">
+          دفعة <span id="yearDisplay">2026</span>
+        </p>
+        <p style="font-family:'Cairo',sans-serif; font-size:0.65rem; color:#333; margin-top:4px; letter-spacing:0.06em;">
+          صُنع بكل <span class="heart-beat" aria-hidden="true">❤</span>
+          <span class="sr-only">حب</span> من طلاب ٣ ثانوي
+        </p>
+      </div>
+
+      <span class="gold-line opacity-25 flex-1" aria-hidden="true"></span>
+    </div>
+
+    <!-- Powered by -->
+    <div class="text-center mt-8">
+      <p class="powered-badge">
+        Powered by <span class="brand">Yami Rin</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    /* ================================================================
+       UTILITY — prefer requestAnimationFrame for scroll callbacks
+       ================================================================ */
+    const raf = window.requestAnimationFrame.bind(window);
+
+    /* ================================================================
+       ENTRY GATE
+       ================================================================ */
+    const entryGate  = document.getElementById('entryGate');
+    const gateHeart  = document.getElementById('gateHeart');
+
+    // Lock body scroll while gate is open
+    document.body.classList.add('no-scroll');
+
+    function createHeartParticles(x, y) {
+      const count   = 20;
+      const symbols = ['❤', '💛', '✨', '💫', '💖'];
+      const frag    = document.createDocumentFragment();
+
+      for (let i = 0; i < count; i++) {
+        const el    = document.createElement('span');
+        el.className = 'heart-particle';
+        el.textContent = symbols[(Math.random() * symbols.length) | 0];
+        el.style.left = x + 'px';
+        el.style.top  = y + 'px';
+
+        const angle    = (Math.PI * 2 * i) / count;
+        const distance = 60 + Math.random() * 110;
+        el.style.setProperty('--tx',  (Math.cos(angle) * distance) + 'px');
+        el.style.setProperty('--ty',  (Math.sin(angle) * distance) + 'px');
+        el.style.setProperty('--rot', ((Math.random() - 0.5) * 480) + 'deg');
+        el.style.animationDuration = (1.1 + Math.random() * 1.6) + 's';
+
+        frag.appendChild(el);
+        setTimeout(() => el.remove(), 1800);
+      }
+      document.body.appendChild(frag);
+    }
+
+    function openGate() {
+      document.body.classList.remove('no-scroll');
+      setTimeout(() => {
+        entryGate.classList.add('hidden');
+        window.scrollTo({ top: 0 });
+        // Show progress bar after gate closes
+        progressBar.classList.add('visible');
+      }, 320);
+    }
+
+    // Mouse / touch
+    gateHeart.addEventListener('click', (e) => {
+      createHeartParticles(e.clientX, e.clientY);
+      openGate();
+    });
+    gateHeart.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      const t = e.changedTouches[0];
+      createHeartParticles(t.clientX, t.clientY);
+      openGate();
+    }, { passive: false });
+
+    // Keyboard (Enter / Space) — accessibility
+    gateHeart.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const rect = gateHeart.getBoundingClientRect();
+        createHeartParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        openGate();
+      }
+    });
+
+    /* ================================================================
+       YEAR DISPLAY
+       ================================================================ */
+    document.getElementById('yearDisplay').textContent = new Date().getFullYear() || '2026';
+
+    /* ================================================================
+       LUXURY CARD SPARKLE
+       ================================================================ */
+    const card = document.querySelector('.luxury-card');
+    if (card) {
+      card.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.88) {
+          const rect    = card.getBoundingClientRect();
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          sparkle.style.left   = (e.clientX - rect.left) + 'px';
+          sparkle.style.top    = (e.clientY - rect.top)  + 'px';
+          sparkle.style.width  = '4px';
+          sparkle.style.height = '4px';
+          card.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 2300);
+        }
+      });
+    }
+
+    /* ================================================================
+       READING PROGRESS BAR
+       ================================================================ */
+    const progressBar = document.getElementById('progress-bar');
+
+    function updateProgress() {
+      const scrollTop  = window.scrollY;
+      const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+      const progress   = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    /* ================================================================
+       SCROLL-TO-TOP BUTTON
+       ================================================================ */
+    const scrollTopBtn = document.getElementById('scroll-top');
+    let scrollRafPending = false;
+
+    function handleScrollUI() {
+      if (scrollRafPending) return;
+      scrollRafPending = true;
+      raf(() => {
+        updateProgress();
+        scrollTopBtn.classList.toggle('show', window.scrollY > 320);
+        scrollRafPending = false;
+      });
+    }
+
+    window.addEventListener('scroll', handleScrollUI, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ================================================================
+       INTERSECTION OBSERVER — scroll-reveal for below-fold elements
+       ================================================================ */
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);   // fire once
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      revealEls.forEach((el) => observer.observe(el));
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      revealEls.forEach((el) => {
+        el.classList.add('in-view');
+        el.style.opacity = 1;
+        el.style.transform = 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
